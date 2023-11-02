@@ -1,0 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: Template
+metadata:
+  name: python-openshift
+  title: Python Application
+  description: A simple Python application for OpenShift
+spec:
+  owner: team-platform
+  type: service
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:cookiecutter
+      input:
+        url: https://github.com/openshift/python-ex
+    - id: publish
+      name: Publish to OpenShift
+      action: openshift:publish
+      input:
+        repoUrl: '{{cookiecutter.github.repoUrl}}'
+  output:
+    fetchUrl: '{{cookiecutter.github.repoUrl}}'
